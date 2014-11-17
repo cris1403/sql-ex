@@ -1,0 +1,4 @@
+sql-ex
+======
+
+SQL exercises
