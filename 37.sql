@@ -1,17 +1,13 @@
-WITH t1 AS (SELECT class, name
-FROM ships
-UNION ALL
-SELECT outcomes.ship, outcomes.ship
-FROM outcomes, classes
-WHERE outcomes.ship = classes.class
+WITH temp as (
+SELECT s.class, s.name
+FROM ships s, classes c
+WHERE s.class = c.class
+UNION
+SELECT o.ship, o.ship
+FROM outcomes o, classes c
+WHERE o.ship = c.class
 )
-,
-t2 AS (
-SELECT * FROM t1
-GROUP BY class, name
-)
-
-SELECT class 
-FROM t2
+SELECT class
+FROM temp
 GROUP BY class
-HAVING count(1) = 1
+HAVING count(*) = 1
